@@ -1,7 +1,7 @@
 // Screen recognition: viewport screenshot with numbered "Set-of-Mark" labels on interactive
 // elements, so a vision-capable model can say which ref (or x,y point) it means.
 //
-// Capture uses Electron's own compositor (webContents.capturePage), which works while the window
+// Capture uses the app's own compositor (webContents.capturePage), which works while the window
 // is covered or minimized; Playwright's page.screenshot waits for fonts/frames and could hang
 // for 10s+ on editor pages. Playwright stays as a fallback.
 

@@ -174,7 +174,7 @@ class ServerClient {
   }
 
   /**
-   * Server on Windows: this Electron runs it as plain Node (ELECTRON_RUN_AS_NODE), so no separate
+   * Server on Windows: the app runtime runs it as plain Node (env below), so no separate
    * Node install is needed. Started through Start-Process for the same reason as WSL below.
    */
   startNative() {

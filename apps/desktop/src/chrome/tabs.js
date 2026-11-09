@@ -1,6 +1,6 @@
 // Tabs of the real Chrome window (ChromeEngine), with the same interface as the built-in
 // TabManager, so the agent, the IPC handlers and the UI's tab strip work on either engine.
-// Each tab gets a small "handle" that stands in for Electron's webContents.
+// Each tab gets a small "handle" that stands in for a tab's webContents.
 
 const os = require('node:os');
 const path = require('node:path');

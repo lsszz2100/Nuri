@@ -4,8 +4,8 @@ const { loginItemOptions, startedByAutostart, entryName } = require('../src/auto
 const { Settings } = require('../src/settings');
 
 test('start-up entry: unpackaged app passes its folder, then --autostart', () => {
-  const o = loginItemOptions({ on: true, execPath: 'C:\\e\\electron.exe', appPath: 'D:\\app', packaged: false, profile: '' });
-  assert.deepStrictEqual(o, { openAtLogin: true, path: 'C:\\e\\electron.exe', args: ['D:\\app', '--autostart'], name: 'Nuri' });
+  const o = loginItemOptions({ on: true, execPath: 'C:\\e\\nuri.exe', appPath: 'D:\\app', packaged: false, profile: '' });
+  assert.deepStrictEqual(o, { openAtLogin: true, path: 'C:\\e\\nuri.exe', args: ['D:\\app', '--autostart'], name: 'Nuri' });
 });
 
 test('start-up entry: packaged app, test profile gets its own entry and profile argument', () => {
@@ -17,8 +17,8 @@ test('start-up entry: packaged app, test profile gets its own entry and profile 
 });
 
 test('startedByAutostart reads the argument', () => {
-  assert.strictEqual(startedByAutostart(['electron.exe', 'D:\\app', '--autostart']), true);
-  assert.strictEqual(startedByAutostart(['electron.exe', 'D:\\app']), false);
+  assert.strictEqual(startedByAutostart(['nuri.exe', 'D:\\app', '--autostart']), true);
+  assert.strictEqual(startedByAutostart(['nuri.exe', 'D:\\app']), false);
 });
 
 test('start/close settings: defaults and validation', () => {

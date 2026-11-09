@@ -19,7 +19,7 @@ function templateId() {
   return extensionId(JSON.parse(fs.readFileSync(path.join(TEMPLATE, 'manifest.json'), 'utf8')).key);
 }
 
-/** The panel page: ANB's index.html with the WebSocket bridge instead of Electron's preload. */
+/** The panel page: ANB's index.html with the WebSocket bridge instead of the app's preload. */
 function panelHtml(indexHtml) {
   return indexHtml
     .replace(/<meta http-equiv="Content-Security-Policy"[^>]*>/, `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https: data:; style-src 'self' 'unsafe-inline'; script-src 'self'; connect-src 'self' ws://127.0.0.1:*" />`)

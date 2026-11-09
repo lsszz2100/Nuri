@@ -26,8 +26,8 @@ function continueTarget(url) {
   return null;
 }
 
-/** A CDP cookie as Electron `cookies.set` details, or null when it cannot be carried over. */
-function toElectronCookie(c) {
+/** A CDP cookie as session `cookies.set` details, or null when it cannot be carried over. */
+function toSessionCookie(c) {
   if (!c?.name || !c.domain || c.partitionKey) return null;
   const host = c.domain.replace(/^\./, '');
   const details = {
@@ -60,7 +60,7 @@ class GoogleLogin extends EventEmitter {
 
   /**
    * Opens the sign-in window and waits until the user has signed in (or closed the window).
-   * @param {{session: Electron.Session, startUrl?: string, continueUrl?: string, timeoutMs?: number}} opts
+   * @param {{session: object, startUrl?: string, continueUrl?: string, timeoutMs?: number}} opts
    * @returns {Promise<{ok: boolean, imported?: number, url?: string, reason?: string}>}
    */
   run(opts) {
@@ -117,7 +117,7 @@ class GoogleLogin extends EventEmitter {
       if (browser.isConnected()) list = await cookies().catch(() => list);
       let imported = 0;
       for (const c of list) {
-        const details = toElectronCookie(c);
+        const details = toSessionCookie(c);
         if (!details) continue;
         try {
           await session.cookies.set(details);
@@ -140,4 +140,4 @@ class GoogleLogin extends EventEmitter {
   }
 }
 
-module.exports = { GoogleLogin, continueTarget, toElectronCookie, profileDirFor: (userData) => path.join(userData, 'google-login') };
+module.exports = { GoogleLogin, continueTarget, toSessionCookie, profileDirFor: (userData) => path.join(userData, 'google-login') };

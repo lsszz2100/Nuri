@@ -21,7 +21,7 @@ function normalizeInput(input, settings) {
 }
 
 // Browser permissions a site may get without asking. Everything else (camera, mic,
-// geolocation, notifications, MIDI, USB, ...) is denied: Electron would otherwise grant all.
+// geolocation, notifications, MIDI, USB, ...) is denied: the runtime would otherwise grant all.
 const GRANTED_PERMISSIONS = new Set(['fullscreen', 'clipboard-sanitized-write', 'pointerLock', 'window-management']);
 
 function hardenSession(ses) {

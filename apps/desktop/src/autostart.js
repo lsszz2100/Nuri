@@ -1,5 +1,5 @@
 // "Windows 시작 시 자동 실행" (설정 > 일반 > 시작 · 종료): a per-user start-up entry
-// (HKCU\...\Run, written by Electron's setLoginItemSettings) that starts this app with --autostart.
+// (HKCU\...\Run, written by app.setLoginItemSettings) that starts this app with --autostart.
 // With general.startInTray the app then starts in the tray, so 예약 작업 run without the window.
 
 const AUTOSTART_ARG = '--autostart';
@@ -13,7 +13,7 @@ function entryName(profile, name = 'Nuri') {
 const OLD_NAME = 'AI Native Browser';
 
 /**
- * Options for app.setLoginItemSettings. When the app runs from electron.exe (not packaged), the
+ * Options for app.setLoginItemSettings. When the app runs unpackaged (dev runtime exe), the
  * app folder must be passed as the first argument.
  */
 function loginItemOptions({ on, execPath, appPath, packaged, profile }) {

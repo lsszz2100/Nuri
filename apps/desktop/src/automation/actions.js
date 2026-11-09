@@ -215,7 +215,7 @@ async function typeInto(page, locator, text, clear) {
 }
 
 /**
- * @param {{page, wc, tabs}} ctx  Playwright page, Electron webContents, TabManager
+ * @param {{page, wc, tabs}} ctx  Playwright page, tab webContents, TabManager
  * @returns {Promise<string>} short result description for the agent history
  */
 async function execute(ctx, action) {

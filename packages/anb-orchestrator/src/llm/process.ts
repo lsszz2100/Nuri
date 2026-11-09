@@ -26,7 +26,7 @@ export function safeEnv(extra: NodeJS.ProcessEnv = {}): NodeJS.ProcessEnv {
 // ---------- running the CLIs on Windows (server outside WSL) ----------
 // On Windows `spawn('codex')` fails: npm installs CLIs as .cmd shims, which need a shell (and a
 // shell would re-parse prompts and JSON arguments). Resolve the command instead: an .exe runs
-// directly; an npm shim runs its JavaScript file with this Node (or Electron as Node).
+// directly; an npm shim runs its JavaScript file with this Node (or the app runtime as Node).
 
 interface ResolvedCli {
   file: string;

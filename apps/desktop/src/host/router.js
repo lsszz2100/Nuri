@@ -1,4 +1,4 @@
-// One registry for the UI's commands, served both to the Electron window (ipcMain) and to the
+// One registry for the UI's commands, served both to the app window (ipcMain) and to the
 // browser side panel (bridge WebSocket). Handlers receive (event, ...args) like ipcMain's.
 
 function makeRouter(ipcMain) {

@@ -3,7 +3,7 @@
 // 1. Starts the orchestrator server inside WSL (scripts/start-server.sh) and waits for /v1/health.
 //    The hidden wsl.exe process is kept alive on purpose: background jobs ("&") started through
 //    wsl.exe are killed as soon as wsl.exe exits, which is why the old launcher never got a server.
-// 2. Launches the desktop app (apps/desktop, Electron). If it is not installed, falls back to
+// 2. Launches the desktop app (apps/desktop). If it is not installed, falls back to
 //    Edge/Chrome with the ANB extension loaded plus the AI cockpit as an extension app window.
 
 using System;
@@ -34,15 +34,15 @@ namespace NuriLauncher
 
             // Preferred: the desktop app (embedded Chromium + AI agent). It starts the WSL server itself.
             string appDir = Path.Combine(baseDir, @"apps\desktop");
-            string electron = Path.Combine(appDir, @"node_modules\electron\dist\electron.exe");
-            if (File.Exists(electron))
+            string runtime = Path.Combine(appDir, @"node_modules\electron\dist\electron.exe");
+            if (File.Exists(runtime))
             {
                 ProcessStartInfo app = new ProcessStartInfo();
-                app.FileName = electron;
+                app.FileName = runtime;
                 app.Arguments = "\"" + appDir + "\"";
                 app.WorkingDirectory = appDir;
                 app.UseShellExecute = false;
-                Log("launch desktop app " + electron);
+                Log("launch desktop app " + runtime);
                 Process.Start(app);
                 return;
             }

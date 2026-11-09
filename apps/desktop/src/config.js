@@ -2,7 +2,7 @@
 const os = require('node:os');
 const path = require('node:path');
 
-// Installed app (electron-builder, see package.json "build"): the app is in resources/app.asar,
+// Installed app (see package.json "build"): the app is in resources/app.asar,
 // the server bundle, browser and scripts next to it, and everything the app writes (logs, work
 // folder, server token) in %APPDATA%\Nuri so updates never touch it.
 // From the repo: the repo root holds all of it, as before.
@@ -64,7 +64,7 @@ module.exports = {
   TOKEN_FILE: path.join(DATA_ROOT, '.anb-data', 'auth-token'),
   SERVER_SCRIPT: path.join(ROOT, 'scripts', 'start-server.sh'),
   // The server itself (built; one bundled file when installed). Run natively on Windows with
-  // Electron as Node (src/server-client.js).
+  // the app runtime as Node (src/server-client.js).
   SERVER_JS: PACKAGED ? path.join(ROOT, 'server', 'server.mjs') : path.join(ROOT, 'packages', 'anb-orchestrator', 'dist', 'server.js'),
   // Helper exe and scripts run by other programs: outside the asar archive when installed.
   NATIVE_DIR: PACKAGED ? path.join(ROOT, 'app.asar.unpacked', 'native') : path.join(__dirname, '..', 'native'),

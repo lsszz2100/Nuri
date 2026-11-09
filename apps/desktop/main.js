@@ -22,7 +22,7 @@ app.setName(config.APP_NAME);
 app.setPath('userData', config.USER_DATA);
 const APP_ICON = path.join(__dirname, 'assets', 'icon.png');
 // Windows notifications show the app's registered name and icon; an unregistered app shows the
-// exe's name ("Electron"). Register ours under HKCU (per user, no admin) and use that ID.
+// exe's default name. Register ours under HKCU (per user, no admin) and use that ID.
 const APP_ID = 'Nuri.Desktop';
 if (process.platform === 'win32') {
   app.setAppUserModelId(APP_ID);

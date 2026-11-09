@@ -77,7 +77,7 @@ class PlaywrightBridge {
     this.pages.delete(webContentsId);
   }
 
-  /** Finds the Playwright Page for an Electron webContents by planting a nonce in the page. */
+  /** Finds the Playwright Page for a tab's webContents by planting a nonce in the page. */
   async pageFor(wc) {
     const cached = this.pages.get(wc.id);
     if (cached && !cached.isClosed()) return cached;

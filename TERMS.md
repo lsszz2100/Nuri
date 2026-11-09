@@ -33,7 +33,7 @@ To the fullest extent permitted by law, the contributors are not liable for any 
 
 ## 6. Third-party software and services
 
-Nuri includes or uses third-party software (such as Electron, Chromium, Playwright and open-source fonts), each under its own license. Third-party websites and AI services are not controlled by the Nuri project.
+Nuri includes or uses third-party software (such as Chromium, Playwright and open-source fonts), each under its own license. Third-party websites and AI services are not controlled by the Nuri project.
 
 ## 7. Changes and contact
 
@@ -76,7 +76,7 @@ Nuri는 **"있는 그대로" 제공되며, 명시적이든 묵시적이든 어�
 
 ## 6. 제3자 소프트웨어와 서비스
 
-Nuri는 Electron, Chromium, Playwright, 오픈소스 글꼴 같은 제3자 소프트웨어를 포함하거나 사용하며, 각각 자체 라이선스를 따릅니다. 제3자 웹사이트와 AI 서비스는 Nuri 프로젝트가 관리하지 않습니다.
+Nuri는 Chromium, Playwright, 오픈소스 글꼴 같은 제3자 소프트웨어를 포함하거나 사용하며, 각각 자체 라이선스를 따릅니다. 제3자 웹사이트와 AI 서비스는 Nuri 프로젝트가 관리하지 않습니다.
 
 ## 7. 변경과 문의
 
