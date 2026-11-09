@@ -42,6 +42,38 @@ class TabManager extends EventEmitter {
     this.bounds = { x: 0, y: 0, width: 0, height: 0 };
     this.hidden = false; // true while the user drags a panel divider (the view would swallow the mouse)
     hardenSession(session.fromPartition(PARTITION));
+    // A tab opened while the window is minimized or in the tray never gets a size (0×0 viewport),
+    // so the agent could not click or type in it. Re-lay out when the window changes state.
+    for (const ev of ['minimize', 'restore', 'hide', 'show']) win?.on?.(ev, () => this.layout());
+  }
+
+  /** True while the window is minimized or hidden (tray): new pages get no size from it then. */
+  offscreen() {
+    try {
+      return !!this.win && (this.win.isMinimized() || !this.win.isVisible());
+    } catch {
+      return false;
+    }
+  }
+
+  /**
+   * Gives a page the page area's size while the window cannot (see constructor). A page keeps
+   * that size until it is on screen: a background tab opened while minimized has no other size.
+   */
+  fixViewport(tab) {
+    const wc = tab.view.webContents;
+    if (wc.isDestroyed()) return;
+    const { width, height } = this.bounds;
+    const onScreen = !this.offscreen() && tab.id === this.activeId && !this.hidden;
+    if (tab.emulated && onScreen) {
+      wc.disableDeviceEmulation();
+      tab.emulated = null;
+    } else if ((this.offscreen() || tab.emulated) && !onScreen && width > 0 && height > 0) {
+      const key = `${width}x${height}`;
+      if (tab.emulated === key) return;
+      wc.enableDeviceEmulation({ screenPosition: 'desktop', screenSize: { width, height }, viewPosition: { x: 0, y: 0 }, deviceScaleFactor: 0, viewSize: { width, height }, scale: 1 });
+      tab.emulated = key;
+    }
   }
 
   /** A tab showing the live picture of the Chromium session (google-browser.js). */
@@ -122,6 +154,7 @@ class TabManager extends EventEmitter {
       // Hidden tabs keep the page area's size too: a background tab (a sub-agent's) must lay out
       // like a real window, or it has no viewport to read.
       if (this.bounds) t.view.setBounds(this.bounds);
+      this.fixViewport(t);
     }
   }
 
@@ -174,6 +207,12 @@ class TabManager extends EventEmitter {
     // A security service's check that the embedded browser cannot finish: the app offers the real one.
     wc.on('page-title-updated', (_e, title) => {
       if (/^(잠시만 기다리십시오|just a moment)/i.test(title)) this.emit('human-check', { tabId: tab.id, url: wc.getURL() });
+    });
+    // A navigation can swap the page into another renderer, which drops the size given while
+    // the window is minimized: give it again.
+    wc.on('did-navigate', () => {
+      if (tab.emulated) tab.emulated = 'stale';
+      this.fixViewport(tab);
     });
     const update = () => this.changed();
     for (const ev of ['page-title-updated', 'did-start-loading', 'did-stop-loading', 'did-navigate', 'did-navigate-in-page']) wc.on(ev, update);
