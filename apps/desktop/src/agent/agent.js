@@ -263,7 +263,9 @@ class Agent extends EventEmitter {
     const onChooser = (chooser) => {
       ctx.pendingChooser = chooser;
     };
-    this.log('agent run', provider, quality, this.unattended ? '(예약 작업)' : goal);
+    // One line per run: a sub-agent's goal carries the sub-agent rules after a blank line.
+    const firstLine = String(goal).split('\n')[0].slice(0, 300);
+    this.log('agent run', provider, quality, sub ? `[${sub}]` : '', this.unattended ? '(예약 작업)' : firstLine);
 
     try {
       for (let step = 1; step <= maxSteps && !this.stopped; step++) {
